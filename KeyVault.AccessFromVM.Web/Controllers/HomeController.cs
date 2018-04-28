@@ -5,19 +5,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using KeyVault.AccessFromVM.Web.Models;
+using Microsoft.Azure.Services.AppAuthentication;
+using Microsoft.Azure.KeyVault;
 
 namespace KeyVault.AccessFromVM.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private static string keyVaultBaseUrl = "https://kvk-keyvault-1.vault.azure.net";
+        private static string secretKey = "mysecret";
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> About()
         {
-            ViewData["Message"] = "Your application description page.";
+            var tokenProvider = new AzureServiceTokenProvider();
+            var vaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(tokenProvider.KeyVaultTokenCallback));
+
+            var secret = await vaultClient.GetSecretAsync($"{keyVaultBaseUrl}/secrets/{secretKey}").ConfigureAwait(false);
+            ViewBag.Secret = secret.Value;
 
             return View();
         }
