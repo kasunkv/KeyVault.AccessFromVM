@@ -28,6 +28,10 @@ namespace KeyVault.AccessFromVM.Web.Controllers
             var secret = await vaultClient.GetSecretAsync($"{keyVaultBaseUrl}/secrets/{secretKey}").ConfigureAwait(false);
             ViewBag.Secret = secret.Value;
 
+            // Get Environment Variables related to MSI
+            ViewBag.MsiSecret = Environment.GetEnvironmentVariable("MSI_SECRET");
+            ViewBag.MsiEndpoint = Environment.GetEnvironmentVariable("MSI_ENDPOINT");
+
             return View();
         }
 
