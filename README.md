@@ -6,8 +6,8 @@ This repository contains an ASP.Net Core 2 MVC application that is used to demon
 
 The following NuGet Packages are used in the application.
 
-* **Azure.KeyVault** – Allows you to interact with the Azure Key Vault
-* **Azure.Services.AppAuthentication** _(Pre-Release)_ – Allows the app to authenticate using the Azure AD.
+* **Microsoft.Azure.KeyVault** – Allows you to interact with the Azure Key Vault
+* **Microsoft.Azure.Services.AppAuthentication** _(Pre-Release)_ – Allows the app to authenticate using the Azure AD.
 
 ## Running the Application Locally
 
